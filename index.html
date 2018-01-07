@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+    <script type="text/javascript">
+      function draw(data) {
+      
+      /*
+        D3.js setup code
+      */
+          var margin = 75,
+              width = 1400 - margin,
+              height = 600 - margin;
+          d3.select('body')
+          .attr('align','center')
+          .append('h1')
+          .text('Who Survived the Titanic?');
+                    
+          var svg = dimple.newSvg("body", 590, 400);
+
+      /*
+        Dimple.js Chart construction code
+      */
+
+          var myChart = new dimple.chart(svg, data);
+
+          myChart.setBounds(60, 30, 510, 330)
+
+          var x = myChart.addCategoryAxis("x", ["PassengerClass","Sex"]); 
+          var y=myChart.addMeasureAxis("y", "SurvivalRate");
+          y.overrideMax = 100;
+          myChart.addSeries("Sex", dimple.plot.bar);
+          myChart.addLegend(65, 10, 510, 20, "right")
+          /*var myLegend = myChart.addLegend("90%", "10%", "10%", "20%", "right");*/
+          myChart.draw();
+        };
+      </script>
+  </head>
+<body>
+  <script type="text/javascript">
+  /*
+    Use D3 (not dimple.js) to load the TSV file
+    and pass the contents of it to the draw function
+    */
+  d3.csv("/data/titanic_survivalRate.csv", draw);
+  </script>
+</body>
+</html>
