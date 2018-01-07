@@ -11,9 +11,15 @@ I chose bar plot since it shows the relationship for categorical variable. The p
 Version2
 As there was less of interaction in the visualisation an additional chart was included which will show the count of people who survived. Two buttons were added which will display the percentage and count respectively.
 
+Version3
+A bar plot of just the count of who survived will not give a clear understanding as the number of people in each class varied. So a stacked bar was used to display the count bar plot which stacked the count of people who survived and who died.
+
 Feedback
 Version1
 No Interaction
+
+Version2
+Bar plot with count is not giving the clear communication 
 
 
 Resources

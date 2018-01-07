@@ -9,16 +9,14 @@
       top: 200px;
       right: 100px;
     }
-
   </style>
-</head>
-<meta charset="utf-8">
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
-<script type="text/javascript">
-</script>
-  
+</head>  
 <body>
+  <meta charset="utf-8">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+  <script type="text/javascript">
+  </script>
   <div class="btn-group-vertical btn-group-sm pull-right " id="right-panel-link">
     <input class="btn btn-default"
       type = "button"
@@ -30,19 +28,19 @@
       onclick="displayCount()" />
   </div>
   <script type="text/javascript">
-  "use strict";
     var margin = 75,
     width = 1400 - margin,
     height = 600 - margin;
+    var svgheight=400
+    var svgwidth=590
     d3.select('body')
       .attr('align','center')
       .append('h1')
       .text('Who Survived the Titanic?');
-    var svg = dimple.newSvg("body", 590, 400);
+    var svg = dimple.newSvg("body",svgwidth, svgheight);
     function displayPercentage() {
       svg.selectAll("*").remove();
       d3.csv("titanic_survivalRate.csv", function draw(data){
-  
 
 
       /*
@@ -53,21 +51,16 @@
       myChart.setBounds(60, 30, 510, 330)
       var x = myChart.addCategoryAxis("x", ["PassengerClass","Sex"]); 
       var y=myChart.addMeasureAxis("y", "SurvivalRate");
-
       y.overrideMax = 100;
-      myChart.addSeries("Sex", dimple.plot.bar);
-      myChart.addLegend(65, 10, 510, 20, "right");
-      myChart.customClassList = {
-          axisTitle: 'People Survived in Percentage'
-      };
-      //myChart.axisTitle("y","People Survived in Percentage");
-      myChart.draw();
+      myChart.addSeries("Sex",dimple.plot.bar);
+      myChart.addLegend(65, 10, 510, 20, "right")
+      myChart.ease = "linear";
+      myChart.draw(500);
     });
       };
   function displayCount() {
     svg.selectAll("*").remove();
       d3.csv("titanic_Count.csv", function draw(data){
-        
 
       /*
         Dimple.js Chart construction code
@@ -76,12 +69,18 @@
       var myChart = new dimple.chart(svg, data);
       myChart.setBounds(60, 30, 510, 330)
       var x = myChart.addCategoryAxis("x", ["PassengerClass","Sex"]);
-      var y=myChart.addMeasureAxis("y", "Count");
-      //myChart.axisTitle("y","No of People Survived");
-      y.overrideMax = 400
-      myChart.addSeries("Sex", dimple.plot.bar);
-      myChart.addLegend(65, 10, 510, 20, "right")
-      myChart.draw();
+      var y=myChart.addMeasureAxis("y","Count");  
+      var s=myChart.addSeries(["State"], dimple.plot.bar);
+      s.addOrderRule(['Survived','Died'])
+      myChart.assignColor("Female", "#FF9089", "#7f8c8d", 1);
+      myChart.assignColor("Male", "#A984E8", "#7f8c8d", 1);
+      myChart.addLegend(65, 10, 510, 20, "right");   
+      myChart.defaultColors = [
+          new dimple.color("#ABF5D9", "#55D3D9", 1),
+          new dimple.color("#D6D3D9", "#7f8c8d", 1)
+      ];
+      myChart.ease = "linear";
+      myChart.draw(500);
     });
       };
 
