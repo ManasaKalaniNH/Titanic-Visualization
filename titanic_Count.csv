@@ -1,0 +1,13 @@
+PassengerClass,Sex,Count,State
+Class 1,Female,3,Died
+Class 1,Female,91,Survived
+Class 1,Male,77,Died
+Class 1,Male,45,Survived
+Class 2,Female,6,Died
+Class 2,Female,70,Survived
+Class 2,Male,91,Died
+Class 2,Male,17,Survived
+Class 3,Female,72,Died
+Class 3,Female,72,Survived
+Class 3,Male,300,Died
+Class 3,Male,47,Survived

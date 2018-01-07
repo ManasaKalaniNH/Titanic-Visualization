@@ -8,7 +8,13 @@ Design
 Version1
 I chose bar plot since it shows the relationship for categorical variable. The plot shows the percentage of Male/Female survived in each class. The percentage was calculated by number of Female/Male survived by Total number of Female/Male were actually there in the respective class. I preferred pastel colors for legends as it will not give more emphasis on the color than the findings. This is my initial version of my project and  will go through changes after the feedback.
 
+Version2
+As there was less of interaction in the visualisation an additional chart was included which will show the count of people who survived. Two buttons were added which will display the percentage and count respectively.
+
 Feedback
+Version1
+No Interaction
+
 
 Resources
 https://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart

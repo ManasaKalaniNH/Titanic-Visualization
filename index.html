@@ -1,50 +1,97 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
-    <script type="text/javascript">
-      function draw(data) {
-      
-      /*
-        D3.js setup code
-      */
-          var margin = 75,
-              width = 1400 - margin,
-              height = 600 - margin;
-          d3.select('body')
-          .attr('align','center')
-          .append('h1')
-          .text('Who Survived the Titanic?');
-                    
-          var svg = dimple.newSvg("body", 590, 400);
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>Titanic Visualization</title>
+  <style>
+    #right-panel-link {
+      position: absolute;
+      top: 200px;
+      right: 100px;
+    }
+
+  </style>
+</head>
+<meta charset="utf-8">
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+<script type="text/javascript">
+</script>
+  
+<body>
+  <div class="btn-group-vertical btn-group-sm pull-right " id="right-panel-link">
+    <input class="btn btn-default"
+      type = "button"
+      value="Percentage"
+      onclick="displayPercentage()" />
+    <input class="btn btn-default"
+      type = "button"
+      value="Count"
+      onclick="displayCount()" />
+  </div>
+  <script type="text/javascript">
+  "use strict";
+    var margin = 75,
+    width = 1400 - margin,
+    height = 600 - margin;
+    d3.select('body')
+      .attr('align','center')
+      .append('h1')
+      .text('Who Survived the Titanic?');
+    var svg = dimple.newSvg("body", 590, 400);
+    function displayPercentage() {
+      svg.selectAll("*").remove();
+      d3.csv("titanic_survivalRate.csv", function draw(data){
+  
+
 
       /*
         Dimple.js Chart construction code
       */
 
-          var myChart = new dimple.chart(svg, data);
+      var myChart = new dimple.chart(svg, data);
+      myChart.setBounds(60, 30, 510, 330)
+      var x = myChart.addCategoryAxis("x", ["PassengerClass","Sex"]); 
+      var y=myChart.addMeasureAxis("y", "SurvivalRate");
 
-          myChart.setBounds(60, 30, 510, 330)
+      y.overrideMax = 100;
+      myChart.addSeries("Sex", dimple.plot.bar);
+      myChart.addLegend(65, 10, 510, 20, "right");
+      myChart.customClassList = {
+          axisTitle: 'People Survived in Percentage'
+      };
+      //myChart.axisTitle("y","People Survived in Percentage");
+      myChart.draw();
+    });
+      };
+  function displayCount() {
+    svg.selectAll("*").remove();
+      d3.csv("titanic_Count.csv", function draw(data){
+        
 
-          var x = myChart.addCategoryAxis("x", ["PassengerClass","Sex"]); 
-          var y=myChart.addMeasureAxis("y", "SurvivalRate");
-          y.overrideMax = 100;
-          myChart.addSeries("Sex", dimple.plot.bar);
-          myChart.addLegend(65, 10, 510, 20, "right")
-          /*var myLegend = myChart.addLegend("90%", "10%", "10%", "20%", "right");*/
-          myChart.draw();
-        };
-      </script>
-  </head>
-<body>
-  <script type="text/javascript">
+      /*
+        Dimple.js Chart construction code
+      */
+
+      var myChart = new dimple.chart(svg, data);
+      myChart.setBounds(60, 30, 510, 330)
+      var x = myChart.addCategoryAxis("x", ["PassengerClass","Sex"]);
+      var y=myChart.addMeasureAxis("y", "Count");
+      //myChart.axisTitle("y","No of People Survived");
+      y.overrideMax = 400
+      myChart.addSeries("Sex", dimple.plot.bar);
+      myChart.addLegend(65, 10, 510, 20, "right")
+      myChart.draw();
+    });
+      };
+
   /*
     Use D3 (not dimple.js) to load the TSV file
     and pass the contents of it to the draw function
-    */
-  d3.csv("titanic_survivalRate.csv", draw);
+
+   */
+   displayPercentage() 
+  
   </script>
 </body>
 </html>
